@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Wystąpił błąd</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="/css/style.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        body {
+            background: linear-gradient(to right, #ff0000, #ffffff);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .error-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 2px solid #dc3545;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .error-container h1 {
+            color: #dc3545;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 1.25rem;
+            margin-bottom: 30px;
+        }
+
+        .btn-custom {
+            background-color: #dc3545;
+            border: none;
+            border-radius: 8px;
+            color: #ffffff;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn-custom:hover {
+            background-color: #c82333;
+            color: #ffffff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+<div class="error-container">
+    <h1>Wystąpił błąd</h1>
+    <p class="error-message" th:text="${error}">Wystąpił nieoczekiwany błąd. Proszę spróbować ponownie później.</p>
+    <a href="/" class="btn btn-custom">Powrót do strony głównej</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

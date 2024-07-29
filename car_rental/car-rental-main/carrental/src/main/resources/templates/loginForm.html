@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Logowanie</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="/css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #0062E6, #33AEFF);
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            margin-bottom: 20px;
+        }
+
+        .btn-custom {
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            width: 100%;
+            padding: 10px;
+        }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+
+        .text-custom {
+            color: #007bff !important;
+        }
+
+        .landing-text {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="login-container" class="form-container visible">
+    <div class="landing-text">
+        <h1>Witamy w Car Rental</h1>
+        <p>Najlepsze miejsce do wynajmu samochodów. Zaloguj się lub zarejestruj, aby rozpocząć.</p>
+    </div>
+    <form method="POST" th:action="@{/login}">
+        <h3 class="text-center text-custom">Zaloguj się</h3>
+        <div class="form-group">
+            <label for="username" class="text-custom">Login:</label>
+            <input id="username" name="username" type="text" class="form-control" placeholder="Username" autofocus="true" />
+        </div>
+        <div class="form-group">
+            <label for="password" class="text-custom">Hasło:</label>
+            <input id="password" name="password" type="password" class="form-control" placeholder="Hasło" />
+        </div>
+        <p class="text-danger" th:text="${error}"></p>
+        <p class="text-success" th:text="${message}"></p>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <button class="btn btn-lg btn-custom btn-block" type="submit">Zaloguj</button>
+        <div id="register-link" class="text-right mt-3">
+            <a href="#" class="text-custom">Zarejestruj się</a>
+        </div>
+    </form>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#register-link a').on('click', function (e) {
+                e.preventDefault();
+                $('#login-container').removeClass('visible').addClass('hidden');
+                setTimeout(function () {
+                    window.location.href = '/registration';
+                }, 500);
+            });
+        });
+    </script>
+</div>
+</body>
+
+</html>

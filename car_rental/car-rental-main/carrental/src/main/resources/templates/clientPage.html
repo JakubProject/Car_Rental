@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Strona Klienta</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .main-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .card {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .card img {
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .card-title {
+            color: #007bff;
+        }
+
+        .list-group-item {
+            border: none;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-custom {
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+<nav th:replace="fragments/clientNavbar :: clientNavbar"></nav>
+<div class="content-container">
+    <div class="main-container">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col" th:each="car : ${cars}">
+                <div class="card">
+                    <img src="/img/auto.jpg" class="card-img-top" alt="car logo">
+                    <div class="card-body">
+                        <h5 class="card-title"><span th:text="${car.mark}"> </span><span th:text="${car.model}"></span></h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Cena za dzień: <span th:text="${car.perDay}"></span></li>
+                        <li class="list-group-item">Odbiór: <span th:text="${car.department}"></span></li>
+                    </ul>
+                    <div class="card-body">
+                        <a class="btn btn-custom btn-block" href="#" th:href="@{/client/rent/{id}(id = ${car.id})}">Wynajmij</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

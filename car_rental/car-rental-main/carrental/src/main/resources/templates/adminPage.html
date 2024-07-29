@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Admin Panel</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #00c6ff, #0072ff); /* Gradientowe tło z kodu 2 */
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+        }
+
+        .container {
+            margin-top: 20px;
+            text-align: center; /* Wyrównanie do środka zawartości kontenera */
+        }
+
+        .header-box {
+            background-color: rgba(255, 255, 255, 0.9); /* Białe tło z lekką przezroczystością */
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .table {
+            background-color: #ffffff; /* Tło tabeli z kodu 2 */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: auto; /* Wyrównanie tabeli do środka */
+        }
+
+        .table thead {
+            background-color: #007bff; /* Kolor nagłówka z kodu 2 */
+            color: #ffffff;
+        }
+
+        .table tbody tr:nth-child(odd) {
+            background-color: #f2f2f2; /* Kolor nieparzystych wierszy z kodu 2 */
+        }
+
+        .table tbody td {
+            vertical-align: middle;
+            text-align: center; /* Wyrównanie tekstu do środka */
+        }
+
+        .table th {
+            text-align: center; /* Wyrównanie tekstu w nagłówkach do środka */
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Styl przycisku z kodu 2 */
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Hover przycisku z kodu 2 */
+        }
+
+        .empty-message {
+            font-style: italic;
+            color: #6c757d;
+            text-align: center;
+        }
+
+        h3 {
+            color: #000000; /* Kolor nagłówka z kodu 2 */
+        }
+
+        .action-btn {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Navbar, kod pozostaje nienaruszony -->
+<nav th:replace="fragments/adminNavbar :: adminNavbar"></nav>
+
+<div class="container">
+    <div class="header-box">
+        <h3 class="text-center">Lista zgłoszeń</h3>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Samochód</th>
+            <th>Całkowity koszt</th>
+            <th>Termin</th>
+            <th>Oddział</th>
+            <th>Status</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${carRents.empty}">
+            <td colspan="6" class="empty-message">Brak zgłoszeń</td>
+        </tr>
+        <tr th:each="carRent : ${carRents}">
+            <td>
+                <span th:text="${carRent.car.mark}">Mark</span>
+                <span th:text="${carRent.car.model}">Model</span>
+            </td>
+            <td><span th:text="${carRent.totalCost}">Total cost</span></td>
+            <td>
+                <span th:text="${carRent.startDate}">Start</span> -
+                <span th:text="${carRent.endDate}">End</span>
+            </td>
+            <td>
+                <span th:text="${carRent.car.department.city}">Miasto</span><br>
+                <span th:text="${carRent.car.department.street}">Ulica</span><br>
+                <span th:text="${carRent.car.department.no}">Numer</span>
+            </td>
+            <td><span th:text="${carRent.status}">Status</span></td>
+            <td>
+                <a class="btn btn-primary action-btn" href="#" th:href="@{/admin/rent/edit/{id}(id = ${carRent.id})}">Zmień status</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>

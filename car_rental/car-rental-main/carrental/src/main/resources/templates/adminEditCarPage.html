@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Edycja Samochodu</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #00c6ff, #0072ff); /* Gradientowe tło */
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        .container {
+            margin-top: 20px;
+            text-align: left; /* Wyrównanie do lewej strony */
+        }
+
+        .header-box {
+            background-color: rgba(255, 255, 255, 0.9); /* Białe tło z lekką przezroczystością */
+            padding: 10px 20px; /* Dodane wewnętrzne odstępy */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: block;
+            margin-bottom: 20px;
+            text-align: center; /* Wyrównanie tekstu do środka */
+            margin-left: auto;
+            margin-right: auto;
+            width: fit-content;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Białe tło z lekką przezroczystością */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group label {
+            color: #007bff; /* Granatowy kolor dla etykiet formularza */
+        }
+
+        .form-control:focus {
+            border-color: #007bff; /* Granatowy kolor dla pola tekstowego na focus */
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Cień granatowy dla focus */
+        }
+
+        .btn-success {
+            background-color: #007bff; /* Granatowy kolor dla przycisków */
+            border: none;
+        }
+
+        .btn-success:hover {
+            background-color: #0056b3; /* Ciemniejszy odcień granatowego dla hover */
+        }
+
+        .alert-danger {
+            margin-top: 20px;
+        }
+
+        h3 {
+            color: #000000; /* Kolor nagłówka */
+            font-size: 1.5rem; /* Rozmiar czcionki */
+        }
+    </style>
+</head>
+
+<body>
+<!-- Navbar, kod pozostaje nienaruszony -->
+<nav th:replace="fragments/adminNavbar :: adminNavbar"></nav>
+
+<div class="container">
+    <div class="header-box">
+        <h3 class="text-center">Edycja samochodu</h3>
+    </div>
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-6">
+            <div class="form-container">
+                <form method="POST" class="form-signin" th:object="${car}" th:action="@{/admin/cars/save}">
+                    <div class="form-group">
+                        <label for="id">Edytujesz samochód o ID:</label><br>
+                        <input type="text" name="id" id="id" class="form-control" th:value="*{id}" th:errorClass="is-invalid" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="mark">Podaj markę:</label><br>
+                        <input type="text" name="mark" id="mark" class="form-control" th:value="*{mark}" th:errorClass="is-invalid">
+                        <span class="has-error" th:if="${#fields.hasErrors('mark')}" th:errors="*{mark}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="model">Podaj model:</label><br>
+                        <input type="text" name="model" id="model" class="form-control" th:value="*{model}" th:errorClass="is-invalid">
+                        <span class="has-error" th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="perDay">Podaj kwotę za dzień:</label><br>
+                        <input type="text" name="perDay" id="perDay" class="form-control" th:value="*{perDay}" th:errorClass="is-invalid">
+                        <span class="has-error" th:if="${#fields.hasErrors('perDay')}" th:errors="*{perDay}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="dropDownList">Wybierz oddział:</label><br>
+                        <select class="form-control" id="dropDownList" th:field="*{departmentId}">
+                            <option th:each="option : ${departments}" th:value="${option.id}" th:text="${option}"></option>
+                        </select>
+                    </div>
+                    <th:block th:if="${error != null}">
+                        <div class="alert alert-danger" role="alert" th:text="${error}"></div>
+                    </th:block>
+                    <input type="submit" name="submit" class="btn btn-success btn-lg" value="Zapisz">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
